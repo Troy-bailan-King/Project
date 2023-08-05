@@ -90,10 +90,10 @@ class CPU:
             self.dec_ceil(turnaround_time_cpu / total_bursts_cpu, 3),
             self.dec_ceil(turnaround_time_io / total_bursts_io, 3)))
         self.simout.write(
-            "-- number of context switches: {} ({},{})\n".format(total_context_switches, context_switches_cpu,
+            "-- number of context switches: {} ({}/{})\n".format(total_context_switches, context_switches_cpu,
                                                                  context_switches_io))
         self.simout.write(
-            "-- number of preemptions: {} ({},{})\n".format(total_preemptions, preemptions_cpu, preemptions_io))
+            "-- number of preemptions: {} ({}/{})\n".format(total_preemptions, preemptions_cpu, preemptions_io))
 
     def __printreadyqueue__(self, rdyq: list):
         if len(rdyq) == 0:
@@ -441,8 +441,8 @@ class CPU:
             else:
                 next_burst_completion = 2 ** 32
         print("time {}ms: Simulator ended for FCFS [Q <empty>]".format(self.time))
+
         # Write stats to simout.txt
-        self.__savestats__("FCFS")
         self.__savestats__("FCFS")
         self.state = {}
         self.time = 0
@@ -459,6 +459,7 @@ class CPU:
             heappush(ready_q, (p.this_tau(), p.pid, p))
 
     def shortest_job_first(self, process_list: list):
+
         print("time {}ms: Simulator started for SJF {}".format(0, self.__printreadyqueue__([])))
         [p.compute_predicted(self.lamda, self.alpha) for p in process_list]
         for p in process_list:
@@ -490,8 +491,6 @@ class CPU:
                             print("time {}ms: Process {} (tau {}ms) completed I/O; added to ready queue {}".format(
                                 p.arrival_time, p.pid, p.this_tau(),
                                 self.__printreadyqueue__(ready_q))) if self.time <= 9999 else None
-
-                    print(len(self.state[p]),p.burst_index)
                     self.state[p][p.burst_index]["READY"].append(self.time)
                     if not current_process:
                         # Context switch in as soon as the process arrives if nothing is in the CPU

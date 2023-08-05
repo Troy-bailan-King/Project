@@ -112,55 +112,49 @@ if __name__ == "__main__":
     myrand.srand48(random_seed)
     num_IO_bound = num_process - num_CPU_bound
     CPU_name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    if num_CPU_bound == 1:
-        print("<<< PROJECT PART I -- process set (n={}) with 1 CPU-bound process >>>".format(num_process))
-    else:
-        print("<<< PROJECT PART I -- process set (n={}) with {} CPU-bound processes >>>".format(num_process, num_CPU_bound))
     process = []
     process2 = []
     process3 = []
     process4 = []
-
     for i in range(num_process):
-        element = []
         interval = []
         arrive_time = math.floor(next_exp())
         num_cpu_burst = generate_cpu_bursts()
         if i < num_IO_bound:
-            print("I/O-bound process {}: arrival time {}ms;".format(CPU_name[i], arrive_time), end=" ")
-            if num_cpu_burst == 1:
-                print("{} CPU burst:".format(num_cpu_burst))
-            else:
-                print("{} CPU bursts:".format(num_cpu_burst))
             for j in range(num_cpu_burst-1):
                 cpu_burst_time, io_burst_time = generate_burst_times(False)
                 interval.append(cpu_burst_time)
                 interval.append(io_burst_time)
-                print("--> CPU burst {}ms --> I/O burst {}ms".format(cpu_burst_time, io_burst_time))
             cpu_burst_time = lats_burst_time(False)
-            print("--> CPU burst {}ms".format(cpu_burst_time))
             interval.append(cpu_burst_time)
-            element = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True, pid=chr(i + ord('A')) )
+            element1 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True,
+                               pid=chr(i + ord('A')))
+            element2 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True,
+                               pid=chr(i + ord('A')))
+            element3 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True,
+                               pid=chr(i + ord('A')))
+            element4 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True,
+                               pid=chr(i + ord('A')))
         else:
-            print("CPU-bound process {}: arrival time {}ms;".format(CPU_name[i], arrive_time), end=" ")
-            if num_cpu_burst == 1:
-                print("{} CPU burst:".format(num_cpu_burst))
-            else:
-                print("{} CPU bursts:".format(num_cpu_burst))
             for j in range(num_cpu_burst-1):
                 cpu_burst_time, io_burst_time = generate_burst_times(True)
                 interval.append(cpu_burst_time)
                 interval.append(io_burst_time)
-                print("--> CPU burst {}ms --> I/O burst {}ms".format(cpu_burst_time, io_burst_time))
             cpu_burst_time = lats_burst_time(True)
-            print("--> CPU burst {}ms".format(cpu_burst_time))
             interval.append(cpu_burst_time)
-            element = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False, pid=chr(i + ord('A')) )
-        if element:
-            process.append(element)
-            process2.append(element)
-            process3.append(element)
-            process4.append(element)
+            element1 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False,
+                               pid=chr(i + ord('A')) )
+            element2 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False,
+                               pid=chr(i + ord('A')))
+            element3 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False,
+                               pid=chr(i + ord('A')))
+            element4 = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False,
+                               pid=chr(i + ord('A')))
+        if element1:
+            process.append(element1)
+            process2.append(element2)
+            process3.append(element3)
+            process4.append(element4)
     print("<<< PROJECT PART I -- process set (n={}) with {} CPU-bound {} >>>".format(num_process, num_CPU_bound,
                                                                                      "process" if num_CPU_bound == 1 else "processes"))
     for i in process:
