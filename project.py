@@ -134,11 +134,12 @@ if __name__ == "__main__":
                 print("{} CPU bursts:".format(num_cpu_burst))
             for j in range(num_cpu_burst-1):
                 cpu_burst_time, io_burst_time = generate_burst_times(False)
+                interval.append(cpu_burst_time)
+                interval.append(io_burst_time)
                 print("--> CPU burst {}ms --> I/O burst {}ms".format(cpu_burst_time, io_burst_time))
             cpu_burst_time = lats_burst_time(False)
             print("--> CPU burst {}ms".format(cpu_burst_time))
             interval.append(cpu_burst_time)
-            interval.append(io_burst_time)
             element = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=True, pid=chr(i + ord('A')) )
         else:
             print("CPU-bound process {}: arrival time {}ms;".format(CPU_name[i], arrive_time), end=" ")
@@ -148,11 +149,12 @@ if __name__ == "__main__":
                 print("{} CPU bursts:".format(num_cpu_burst))
             for j in range(num_cpu_burst-1):
                 cpu_burst_time, io_burst_time = generate_burst_times(True)
+                interval.append(cpu_burst_time)
+                interval.append(io_burst_time)
                 print("--> CPU burst {}ms --> I/O burst {}ms".format(cpu_burst_time, io_burst_time))
             cpu_burst_time = lats_burst_time(True)
             print("--> CPU burst {}ms".format(cpu_burst_time))
             interval.append(cpu_burst_time)
-            interval.append(io_burst_time)
             element = Process(arrival_time=arrive_time, cpu_bursts=num_cpu_burst, intervals=interval, io_bound=False, pid=chr(i + ord('A')) )
         if element:
             process.append(element)
@@ -169,3 +171,9 @@ if __name__ == "__main__":
 
     cpu = CPU(tcs, lbd, alpha)
     cpu.fcfs(process)
+    print()
+    cpu.shortest_job_first(process2)
+    print()
+    cpu.shortest_time_remaining(process3)
+    print()
+    cpu.round_robin(process4, tslice)

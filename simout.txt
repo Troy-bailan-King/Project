@@ -1,0 +1,14 @@
+Algorithm FCFS
+-- CPU Utilization: 84.253%
+-- average CPU burst time: 3067.776 ms (4071.001ms/992.138ms)
+-- average wait time: 779.663 ms (217.284ms/1943.207ms)
+-- average turnaround time: 3851.439 ms (4292.284ms/2939.345ms)
+-- number of context switches: 89 (60,29)
+-- number of preemptions: 0 (0,0)
+Algorithm FCFS
+-- CPU Utilization: 84.253%
+-- average CPU burst time: 3067.776 ms (4071.001ms/992.138ms)
+-- average wait time: 779.663 ms (217.284ms/1943.207ms)
+-- average turnaround time: 3851.439 ms (4292.284ms/2939.345ms)
+-- number of context switches: 89 (60,29)
+-- number of preemptions: 0 (0,0)
